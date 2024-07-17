@@ -1,0 +1,29 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: jakirbd-jspapp
+  labels: 
+     app: jspapp
+
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: jspapp
+
+  template:
+    metadata:
+      labels:
+        app: jspapp
+    spec:
+      containers:
+      - name: jspapp
+        image: jakirbd/jspapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
